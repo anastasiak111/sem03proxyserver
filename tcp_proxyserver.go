@@ -9,13 +9,13 @@ import (
 
 func main() {
 	var wg sync.WaitGroup
-	proxyServer, err := net.Listen("tcp", "172.17.0.2:4000")
+	proxyServer, err := net.Listen("tcp", "172.17.0.4:4000")
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.Printf("bundet til %s", proxyServer.Addr().String())
-    wg.Add(1)
-    go func() {
+	wg.Add(1)
+	go func() {
 		defer wg.Done()
 		for {
 			log.Println("før proxyServer.Accept() kallet")
@@ -26,8 +26,8 @@ func main() {
 			go func(client net.Conn) {
 				defer client.Close()
 
-				server, err := net.Dial("tcp", "172.17.0.2:4000")
-                if err != nil {
+				server, err := net.Dial("tcp", "172.17.0.4:4000")
+                			if err != nil {
 					log.Println(err)
 					return
 				}
